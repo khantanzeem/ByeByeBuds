@@ -14,9 +14,15 @@ struct SmokingSurveyView: View {
     @State private var dailyUrge: String = ""
     @State private var quitAttempts: String = ""
     @State private var reasonsToQuit: String = ""
+    @State private var goTOCustomTabBar: Bool = false
 
     var body: some View {
         ZStack(alignment: .bottom) {
+            NavigationLink("", isActive: $goTOCustomTabBar) {
+                // Questions View
+                CustomTabBarView()
+            }
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Color.clear
@@ -63,7 +69,7 @@ struct SmokingSurveyView: View {
             .padding(.bottom, 30)
             VStack {
                 Button(action: {
-                    print("Button to start")
+                    goTOCustomTabBar = true
                 }, label: {
                     HStack {
                         Text("Complete Assesement")

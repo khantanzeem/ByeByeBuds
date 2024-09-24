@@ -12,6 +12,7 @@
 		4EED03882CA307BF001665EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EED03872CA307BF001665EF /* Assets.xcassets */; };
 		4EED038B2CA307BF001665EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EED038A2CA307BF001665EF /* Preview Assets.xcassets */; };
 		4EED03922CA30C70001665EF /* AssesmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED03912CA30C70001665EF /* AssesmentView.swift */; };
+		4EED03942CA33150001665EF /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED03932CA33150001665EF /* CustomTabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		4EED03872CA307BF001665EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4EED038A2CA307BF001665EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4EED03912CA30C70001665EF /* AssesmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssesmentView.swift; sourceTree = "<group>"; };
+		4EED03932CA33150001665EF /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				4EED03872CA307BF001665EF /* Assets.xcassets */,
 				4EED03892CA307BF001665EF /* Preview Content */,
 				4EED03912CA30C70001665EF /* AssesmentView.swift */,
+				4EED03932CA33150001665EF /* CustomTabBar.swift */,
 			);
 			path = FourSquare;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EED03942CA33150001665EF /* CustomTabBar.swift in Sources */,
 				4EED03862CA307BE001665EF /* ContentView.swift in Sources */,
 				4EED03842CA307BE001665EF /* FourSquareApp.swift in Sources */,
 				4EED03922CA30C70001665EF /* AssesmentView.swift in Sources */,
