@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E07EEB62CA3FCC100581300 /* RecommendationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07EEB52CA3FCC100581300 /* RecommendationView.swift */; };
+		4E07EEB82CA3FCCB00581300 /* LoggingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07EEB72CA3FCCB00581300 /* LoggingView.swift */; };
+		4E07EEBA2CA3FCD800581300 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E07EEB92CA3FCD800581300 /* HomeScreenView.swift */; };
 		4EED03842CA307BE001665EF /* FourSquareApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED03832CA307BE001665EF /* FourSquareApp.swift */; };
 		4EED03862CA307BE001665EF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED03852CA307BE001665EF /* ContentView.swift */; };
 		4EED03882CA307BF001665EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EED03872CA307BF001665EF /* Assets.xcassets */; };
 		4EED038B2CA307BF001665EF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EED038A2CA307BF001665EF /* Preview Assets.xcassets */; };
 		4EED03922CA30C70001665EF /* AssesmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED03912CA30C70001665EF /* AssesmentView.swift */; };
 		4EED03942CA33150001665EF /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EED03932CA33150001665EF /* CustomTabBar.swift */; };
+		4EF1F63E2CA41D45005A029B /* HealthkitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EF1F63D2CA41D45005A029B /* HealthkitManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4E07EEB52CA3FCC100581300 /* RecommendationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationView.swift; sourceTree = "<group>"; };
+		4E07EEB72CA3FCCB00581300 /* LoggingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingView.swift; sourceTree = "<group>"; };
+		4E07EEB92CA3FCD800581300 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		4EED03802CA307BE001665EF /* FourSquare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FourSquare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EED03832CA307BE001665EF /* FourSquareApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourSquareApp.swift; sourceTree = "<group>"; };
 		4EED03852CA307BE001665EF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -23,6 +30,8 @@
 		4EED038A2CA307BF001665EF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4EED03912CA30C70001665EF /* AssesmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssesmentView.swift; sourceTree = "<group>"; };
 		4EED03932CA33150001665EF /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
+		4EF1F63D2CA41D45005A029B /* HealthkitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthkitManager.swift; sourceTree = "<group>"; };
+		4EF1F63F2CA41FCB005A029B /* FourSquare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FourSquare.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +45,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E07EEB12CA3FC7B00581300 /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				4E07EEB92CA3FCD800581300 /* HomeScreenView.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		4E07EEB22CA3FC8400581300 /* Logging */ = {
+			isa = PBXGroup;
+			children = (
+				4E07EEB72CA3FCCB00581300 /* LoggingView.swift */,
+			);
+			path = Logging;
+			sourceTree = "<group>";
+		};
+		4E07EEB32CA3FC8C00581300 /* Recommendation */ = {
+			isa = PBXGroup;
+			children = (
+				4E07EEB52CA3FCC100581300 /* RecommendationView.swift */,
+			);
+			path = Recommendation;
+			sourceTree = "<group>";
+		};
+		4E07EEB42CA3FC9900581300 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				4E07EEB32CA3FC8C00581300 /* Recommendation */,
+				4E07EEB22CA3FC8400581300 /* Logging */,
+				4E07EEB12CA3FC7B00581300 /* HomeScreen */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		4E07EEBB2CA3FCE000581300 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				4E07EEBC2CA3FCEF00581300 /* CustomTabBar */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		4E07EEBC2CA3FCEF00581300 /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				4EED03932CA33150001665EF /* CustomTabBar.swift */,
+			);
+			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
+		4E07EEBD2CA3FD0B00581300 /* AssesmentQuestion */ = {
+			isa = PBXGroup;
+			children = (
+				4EED03912CA30C70001665EF /* AssesmentView.swift */,
+			);
+			path = AssesmentQuestion;
+			sourceTree = "<group>";
+		};
 		4EED03772CA307BE001665EF = {
 			isa = PBXGroup;
 			children = (
@@ -55,12 +122,15 @@
 		4EED03822CA307BE001665EF /* FourSquare */ = {
 			isa = PBXGroup;
 			children = (
+				4EF1F63F2CA41FCB005A029B /* FourSquare.entitlements */,
+				4E07EEBD2CA3FD0B00581300 /* AssesmentQuestion */,
+				4E07EEBB2CA3FCE000581300 /* CustomViews */,
+				4E07EEB42CA3FC9900581300 /* Tabs */,
 				4EED03832CA307BE001665EF /* FourSquareApp.swift */,
 				4EED03852CA307BE001665EF /* ContentView.swift */,
 				4EED03872CA307BF001665EF /* Assets.xcassets */,
 				4EED03892CA307BF001665EF /* Preview Content */,
-				4EED03912CA30C70001665EF /* AssesmentView.swift */,
-				4EED03932CA33150001665EF /* CustomTabBar.swift */,
+				4EF1F63D2CA41D45005A029B /* HealthkitManager.swift */,
 			);
 			path = FourSquare;
 			sourceTree = "<group>";
@@ -143,9 +213,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E07EEB82CA3FCCB00581300 /* LoggingView.swift in Sources */,
 				4EED03942CA33150001665EF /* CustomTabBar.swift in Sources */,
+				4EF1F63E2CA41D45005A029B /* HealthkitManager.swift in Sources */,
 				4EED03862CA307BE001665EF /* ContentView.swift in Sources */,
+				4E07EEB62CA3FCC100581300 /* RecommendationView.swift in Sources */,
 				4EED03842CA307BE001665EF /* FourSquareApp.swift in Sources */,
+				4E07EEBA2CA3FCD800581300 /* HomeScreenView.swift in Sources */,
 				4EED03922CA30C70001665EF /* AssesmentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,22 +351,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FourSquare/FourSquare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FourSquare/Preview Content\"";
+				DEVELOPMENT_TEAM = WV3KG35563;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wellbeing+ would like to read your health data for pre-program assessments.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wellbeing+ would like to write to your health data for pre-program assessments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mindstix.FourSquare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amway.hwexperience.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -305,22 +384,27 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FourSquare/FourSquare.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FourSquare/Preview Content\"";
+				DEVELOPMENT_TEAM = WV3KG35563;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Wellbeing+ would like to read your health data for pre-program assessments.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Wellbeing+ would like to write to your health data for pre-program assessments.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Mindstix.FourSquare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amway.hwexperience.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
