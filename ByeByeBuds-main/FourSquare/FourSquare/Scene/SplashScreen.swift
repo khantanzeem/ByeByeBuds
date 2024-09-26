@@ -11,11 +11,14 @@ struct SplashScreen: View {
     var body: some View {
         NavigationView {
             ZStack {
+                Rectangle()
+                    .fill(Color(hex:"#1F2E35"))
                 VStack {
                     LottieView(lottieFile: "lottie1")
-                        .frame(width: UIScreen.main.bounds.width - 20, height: 350)
+                        .frame(width: UIScreen.main.bounds.width - 60, height: 200)
                     Text("Chain Breaker")
                         .font(.title)
+                        .foregroundStyle(.white)
                 }
                 NavigationLink("", isActive: $navigateToNext) {
                     // Questions View

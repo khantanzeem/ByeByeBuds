@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreML
+import HealthKit
 
 struct SmokingModel: View {
     // Input parameters
@@ -15,8 +16,13 @@ struct SmokingModel: View {
     @State private var smokingDuration: Double = 5
     @State private var timeOfDay: Double = 12
     @State private var cigarettesPerDay: Double = 10
-    @State private var heartRate: Double = 80
-    @State private var heartRateVariability: Double = 50
+    
+    @State private var hrvValue: Double? = nil
+    @State private var heartRate: Double = 0.0
+    let healthKitManager = HealthKitManager()
+    let healthStore = HKHealthStore()
+    
+    @Binding var somking: Bool
     
     // Output prediction
     @State private var isSmokingPrediction: String = "Unknown"
@@ -25,6 +31,7 @@ struct SmokingModel: View {
     @State var index: Int = 0
     
     @State var timer = Timer.publish(every: TimeInterval(), on: .main, in: .common).autoconnect()
+    @State var timer2 = Timer.publish(every: TimeInterval(), on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
@@ -67,6 +74,7 @@ struct SmokingModel: View {
                     .italic()
                     .fontWeight(.medium)
                     .frame(alignment: .center)
+                    .foregroundStyle(Color.white)
             }
             .frame(height: 70)
             .padding(.horizontal, 120)
@@ -125,6 +133,16 @@ struct SmokingModel: View {
                     }
                 }
             }
+            .onReceive(timer2) { _ in
+                timer2 = Timer.publish(every: 600, on: .main, in: .common).autoconnect()
+                startHeartRateQuery()
+                fetchHRVData { hrv in
+                    DispatchQueue.main.async {
+                        self.hrvValue = hrv
+                    }
+                }
+                predictSmokingStatus()
+            }
             VStack(spacing: 5) {
                 ZStack {
                     Rectangle()
@@ -142,7 +160,7 @@ struct SmokingModel: View {
                         }
                         Text("Heart Rate")
                         Spacer()
-                        Text("86 BPM")
+                        Text("\(Int(heartRate)) BPM")
                     }
                     .font(.subheadline)
                     .fontWeight(.bold)
@@ -165,7 +183,11 @@ struct SmokingModel: View {
                         }
                         Text("Stress")
                         Spacer()
-                        Text("Low")
+                        if let hrv = hrvValue {
+                            Text(stressLevel(for: hrv))
+                        } else {
+                            Text("--")
+                        }
                     }
                     .font(.subheadline)
                     .fontWeight(.bold)
@@ -199,6 +221,14 @@ struct SmokingModel: View {
             .padding(.top, 20)
             .padding(.bottom, 100)
         }
+        .onAppear {
+            startHeartRateQuery()
+            fetchHRVData { hrv in
+                DispatchQueue.main.async {
+                    self.hrvValue = hrv
+                }
+            }
+        }
     }
     func predictSmokingStatus() {
         // Load the model
@@ -215,21 +245,102 @@ struct SmokingModel: View {
                                                     time_of_day: Int64(timeOfDay),
                                                     cigarettes_per_day: Int64(cigarettesPerDay),
                                                     heart_rate: Int64(heartRate),
-                                                    hr_variability: Int64(heartRateVariability))
+                                                    hr_variability: Int64(hrvValue ?? 27.0))
             
             // Get prediction
             let prediction = try model.prediction(input: input)
             
             // Update the UI
-            isSmokingPrediction = prediction.is_smoking > 0.3 ? "Smoking" : "Not Smoking"
+            somking = prediction.is_smoking > 0.3 ? true : false
         } catch {
             isSmokingPrediction = "Prediction failed"
         }
     }
 }
 
+extension SmokingModel {
+    func startHeartRateQuery() {
+        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        
+        let query = HKAnchoredObjectQuery(type: heartRateType, predicate: nil, anchor: nil, limit: HKObjectQueryNoLimit) { query, samples, _, _, error in
+            self.handleHeartRateSamples(samples)
+        }
+        
+        query.updateHandler = { query, samples, _, _, error in
+            self.handleHeartRateSamples(samples)
+        }
+        
+        healthStore.execute(query)
+    }
+    
+    private func handleHeartRateSamples(_ samples: [HKSample]?) {
+        guard let samples = samples as? [HKQuantitySample] else { return }
+        
+        for sample in samples {
+            let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+            let heartRate = sample.quantity.doubleValue(for: heartRateUnit)
+            print("Heart rate: \(heartRate) BPM")
+            
+            DispatchQueue.main.async {
+                self.heartRate = heartRate
+            }
+        }
+    }
+    
+    func fetchHRVData(completion: @escaping (Double?) -> Void) {
+        let hrvType = HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
+        let now = Date()
+        let startOfDay = Calendar.current.startOfDay(for: now)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+        
+        let query = HKSampleQuery(sampleType: hrvType, predicate: predicate, limit: 1, sortDescriptors: [NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)]) { _, results, error in
+            if let result = results?.first as? HKQuantitySample {
+                let hrv = result.quantity.doubleValue(for: HKUnit.secondUnit(with: .milli))
+                completion(hrv)
+            } else {
+                if let error = error {
+                    print("Error fetching HRV: \(error.localizedDescription)")
+                }
+                completion(nil)
+            }
+        }
+        
+        healthStore.execute(query)
+    }
+    
+    // Simple interpretation of stress based on HRV
+    func stressLevel(for hrv: Double) -> String {
+        switch hrv {
+        case ..<30:
+            return "High Stress"
+        case 30..<50:
+            return "Moderate Stress"
+        default:
+            return "Low Stress"
+        }
+    }
+    
+    func enableBackgroundDelivery() {
+        healthStore.enableBackgroundDelivery(for: HKObjectType.quantityType(forIdentifier: .heartRate)!, frequency: .immediate) { success, error in
+            if success {
+                print("Background delivery enabled for heart rate")
+            } else if let error = error {
+                print("Error enabling background delivery: \(error.localizedDescription)")
+            }
+        }
+        
+        healthStore.enableBackgroundDelivery(for: HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!, frequency: .immediate) { success, error in
+            if success {
+                print("Background delivery enabled for HRV")
+            } else if let error = error {
+                print("Error enabling background delivery for HRV: \(error.localizedDescription)")
+            }
+        }
+    }
+}
+
 struct SmokingPredictionModel_Previews: PreviewProvider {
     static var previews: some View {
-        SmokingModel()
+        SmokingModel(somking: .constant(true))
     }
 }

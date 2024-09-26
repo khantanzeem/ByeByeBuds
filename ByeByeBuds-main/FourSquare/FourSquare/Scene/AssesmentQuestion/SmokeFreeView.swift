@@ -9,6 +9,9 @@ import SwiftUI
 
 struct SmokeFreeView: View {
     @Binding var goToCustomTabBar: Bool
+    @State var totalSavingCigrattes: String = "0"
+    @State var totalSavingMoney: String = "0"
+    
     var body: some View {
         VStack {
             Spacer()
@@ -27,7 +30,7 @@ struct SmokeFreeView: View {
                         .font(.system(size: 40))
                         .foregroundColor(.orange)
                     
-                    Text("300")
+                    Text("\(totalSavingCigrattes)")
                         .font(.title)
                         .foregroundColor(.white)
                     
@@ -42,7 +45,7 @@ struct SmokeFreeView: View {
                         .font(.system(size: 40))
                         .foregroundColor(.yellow)
                     
-                    Text("₹300")
+                    Text("₹\(totalSavingMoney)")
                         .font(.title)
                         .foregroundColor(.white)
                     
@@ -78,6 +81,18 @@ struct SmokeFreeView: View {
             .padding(.bottom)
         }
         .padding()
+        .onAppear {
+            let cigaretteCount = UserDefaults.standard.string(forKey: "question3")
+            let intValueCigarett = Int(cigaretteCount ?? "0")
+            let intTotalSavingCigrattes = (intValueCigarett ?? 0) * 30
+            totalSavingCigrattes = String(intTotalSavingCigrattes)
+            
+            let periceOfCigarette = UserDefaults.standard.string(forKey: "question4")
+            let intValueSavings = Int(periceOfCigarette ?? "0")
+            let totalSavingMoney1 = (intValueSavings ?? 0) * (intValueCigarett ?? 0) * 30
+            totalSavingMoney = String(totalSavingMoney1)
+            
+        }
     }
 }
 

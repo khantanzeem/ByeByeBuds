@@ -35,7 +35,7 @@ struct CustomTabBarView: View {
                             .frame(height: UIScreen.main.bounds.height, alignment: .top)
                             .ignoresSafeArea()
                     }
-                    HomeScreenView()
+                    HomeScreenView(selectedTab: $selectedTab)
                     
                 }
             case .logging:
@@ -46,7 +46,7 @@ struct CustomTabBarView: View {
                             .frame(height: UIScreen.main.bounds.height, alignment: .top)
                             .ignoresSafeArea()
                     }
-                    LoggingView()
+                    LoggingView(selectedTab: $selectedTab)
                     
                 }
             case .recommendedSection:
